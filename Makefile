@@ -21,7 +21,7 @@ install:
 	poetry install -vv
 
 test:
-	poetry run pytest -s tests # --without-integration # need a test to be marked with @pytest.mark.integration_test to be valid
+	poetry run pytest -s tests # --without-integration
 
 lock: 
 	poetry lock -vv
