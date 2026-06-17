@@ -16,6 +16,8 @@ numpy = "2.4.6"
 pytest = "^7.0"
 black = "^24.0"
 pre-commit = "^3.0"
+matplotlib = "^3.8"
+jupyter = "^1.0"
 
 [build-system]
 requires = ["poetry-core"]

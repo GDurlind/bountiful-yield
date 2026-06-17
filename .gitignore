@@ -12,6 +12,9 @@ data/*
 venv/*
 .venv*
 
+# plots
+.plots/*
+
 # data files
 **.csv
 **.parquet
@@ -23,4 +26,3 @@ venv/*
 
 .DS_Store
 
-**.ipynb

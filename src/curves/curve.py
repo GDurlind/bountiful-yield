@@ -23,7 +23,9 @@ class YieldCurve:
     must be fitted before passing to the curve.
     """
 
-    _interpolator: Interpolator
+    times: np.ndarray
+    discount_factors: np.ndarray
+    interpolator: Interpolator
 
     def discount_factor(self, t: float) -> float:
         """Return discount factor for time `t` (in years).
@@ -34,7 +36,7 @@ class YieldCurve:
         Returns:
             discount factor (positive float)
         """
-        df = float(self._interpolator.evaluate(t))
+        df = float(self.interpolator.evaluate(t))
         if df <= 0.0:
             raise exceptions.CurveError("Discount factor must be positive")
         return df
@@ -69,7 +71,7 @@ class YieldCurve:
         """
         # sample a small grid
         xs = np.linspace(0.0, 30.0, 61)[1:]
-        dfs = np.array([self._interpolator.evaluate(x) for x in xs])
+        dfs = np.array([self.interpolator.evaluate(x) for x in xs])
         if np.any(dfs <= 0.0):
             return False
         # discount factors should be non-increasing
@@ -78,7 +80,7 @@ class YieldCurve:
     def check_monotonicity(self) -> bool:
         """Return True if discount factors are non-increasing with time."""
         xs = np.linspace(0.0, 30.0, 61)[1:]
-        dfs = np.array([self._interpolator.evaluate(x) for x in xs])
+        dfs = np.array([self.interpolator.evaluate(x) for x in xs])
         return bool(np.all(np.diff(dfs) <= 1e-12))
 
     def report(self) -> dict:
